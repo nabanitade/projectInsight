@@ -1,0 +1,100 @@
+package javaapplication66;
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.*;
+public class JavaApplication66 {
+   public static void main(String[] args) {
+        try
+        {
+           // File fq = new File("C:/Users/Nisha/Desktop/wc_output/med_result.txt");
+            File fq = new File("C:/wc_output/med_result.txt");
+            FileWriter fq1 = new FileWriter(fq);
+            BufferedWriter fq2 = new BufferedWriter(fq1);
+            int c = 0;
+           ArrayList<Integer> a1 = new ArrayList<Integer>();
+            ArrayList<String> a = new ArrayList<String>();
+        File folder = new File("C:/Users/Nisha/Desktop/wc_input");
+        File[] listoffiles = folder.listFiles();
+        for(File file : listoffiles)
+        {
+            if(file.isFile())
+            {
+                a.add(file.getPath()); 
+               
+            }
+        }
+        String words = "";
+        Collections.sort(a);
+        for(String ak : a)
+        {
+            //System.out.println(ak);
+            File f = new File(ak);
+            
+            words = "";
+            Scanner s = new Scanner(f);
+            while(s.hasNext())
+            {
+                words = s.nextLine();
+                words = words.replaceAll("[^a-zA-Z0-9]+", " ");
+                String[] ffd = words.split(" ");
+               // System.out.println(ffd.length);
+                a1.add(ffd.length);         
+            }   
+           
+        }
+       // System.out.println(words);
+           for(int i = 0;i< a1.size();i++)
+      {
+          ArrayList<Integer> sdd = new ArrayList<Integer>();
+          for(int j = 0;j<=i;j++)
+          {
+              sdd.add(a1.get(j));
+             // System.out.println(a1.get(j));
+              
+          }
+          Collections.sort(sdd);
+         // System.out.println(sdd);
+          if(sdd.size()==1)
+          {
+              float hhg = (float)sdd.get(0);
+              String hhg1 = ""+hhg;
+              fq2.write(hhg1);
+              
+              //System.out.println(hhg);
+          }
+          else if((sdd.size())%2==0)
+          {
+              int half = sdd.size()/2;
+              half = half-1;
+             //System.out.println("half1 "+half + "\t"+ sdd.get(half) + "\t" + sdd.get(half+1) );
+             int fff = sdd.get(half);
+             int fff1 = sdd.get(half+1);
+             float coun = (float)(fff+fff1)/2;
+             String hhg1 = ""+coun;
+              fq2.write(hhg1);
+           // System.out.println(coun);
+          }
+          else
+          {
+              int half = sdd.size()/2;
+              half = half-1;
+             // System.out.println("half1 "+half);
+              float coun = (float) sdd.get(half);
+              String hhg1 = ""+coun;
+              fq2.write(hhg1);
+          //  System.out.println(coun);
+          }
+          fq2.newLine();
+      }
+     
+    fq2.close();
+       
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+    }
+}
