@@ -1,0 +1,72 @@
+package javaapplication65;
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.*;
+public class JavaApplication65 {
+
+    public static void main(String[] args) {
+        try
+        {
+           File output = new File("C:/wc_output/wc_result.txt");
+            //File output = new File("C:/Users/Nisha/Desktop/wc_output/wc_result.txt");
+            
+           FileWriter g1 = new FileWriter(output);
+           BufferedWriter b11 = new BufferedWriter(g1);
+            ArrayList<String> a = new ArrayList<String>();
+        File folder = new File("C:/Users/Nisha/Desktop/wc_input/");
+        File[] listoffiles = folder.listFiles();
+        for(File file : listoffiles)
+        {
+            if(file.isFile())
+            {
+                a.add(file.getPath()); 
+            }
+        }
+        String words = "";
+        for(String ak : a)
+        {
+            File f = new File(ak);
+            Scanner s = new Scanner(f);
+            while(s.hasNext())
+            {
+                words = words + s.nextLine()+ " ";
+            }   
+        }
+      
+        TreeMap h = new TreeMap();
+        words = words.replaceAll("[^a-zA-Z0-9]+", " ");
+        words = words.toLowerCase();
+        
+        String[] k = words.split(" ");
+        for(String d : k)
+        {
+            if(h.containsKey(d))
+            {
+                int occ = (int)h.get(d);
+                occ = occ+1;
+            h.put(d, occ);
+                    }
+            else
+            {
+                h.put(d,1);
+            }
+        }
+       for(Object t1 : h.entrySet())
+       {
+           
+           String t2 = t1.toString();
+           t2 = t2.replaceAll("=","");
+           b11.write(t2);
+           b11.newLine();
+           
+       }
+      
+        b11.close();
+        }
+        catch(Exception e)
+        {
+            
+        }
+    }
+}
